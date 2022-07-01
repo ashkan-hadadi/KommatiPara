@@ -1,0 +1,6 @@
+flake8==3.9.2
+pre-commit==2.15.0
+requests
+pytest
+pytest-cov
+mypy

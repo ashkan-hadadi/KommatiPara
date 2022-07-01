@@ -1,0 +1,5 @@
+fastapi
+starlette-exporter==0.12.0
+uvicorn[standard]
+pandas
+aiofiles

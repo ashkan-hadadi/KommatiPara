@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  backend:
+    env_file:
+      - .env
+    build:
+      context: .
+    command:
+      - './entrypoint'
