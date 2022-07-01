@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   backend:
+    image: kommati_para
     env_file:
       - .env
     build:

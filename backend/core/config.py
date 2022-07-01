@@ -1,3 +1,4 @@
+import os
 import secrets
 from typing import List, Optional, Union
 
@@ -6,11 +7,18 @@ from pydantic import AnyHttpUrl, BaseSettings, HttpUrl, validator
 
 class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+    INPUT_DATASET_DIR: Optional[str] = 'datasets'
+    OUTPUT_DATASET_DIR: Optional[str] = 'client_data'
+
+    # logs configs
+    LOG_FILE_NAME: str = 'server.log'
+    LOG_MAX_BYTES: int = 2000
+    LOG_BACKUP_COUNTS: int = 10
+
     SECRET_KEY: str = secrets.token_urlsafe(32)
-    # 60 minutes * 24 hours * 8 days = 8 days
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
-    SERVER_NAME: str
-    SERVER_HOST: AnyHttpUrl
+    SERVER_NAME: str = None
+    SERVER_HOST: AnyHttpUrl = None
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
     # "http://localhost:8080", "http://local.dockertoolbox.tiangolo.com"]'

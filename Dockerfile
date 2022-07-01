@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /kommatipara
 
-COPY requirements.txt /kommatipara/
+COPY requirements.txt /kommatipara
 RUN pip install -r requirements.txt
 
 COPY . /kommatipara

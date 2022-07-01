@@ -1,10 +1,12 @@
 import logging
 import time
+from logging.handlers import RotatingFileHandler
 
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
+from backend.core.config import settings
 from backend.core.utils.logger import JSONFormatter
 
 
@@ -29,14 +31,15 @@ class ActivityLoggerMiddleWare(BaseHTTPMiddleware):
         self.logger.setLevel(logging.INFO)
 
         self.add_file_handler()
-        # self.logger.addFilter(APIFilter())
 
     def add_file_handler(self):
-        file_handler = logging.FileHandler('activity.log')
+        file_handler = RotatingFileHandler(settings.LOG_FILE_NAME, maxBytes=settings.LOG_MAX_BYTES,
+                                           backupCount=settings.LOG_BACKUP_COUNTS)
         file_handler.setFormatter(JSONFormatter())
         self.logger.addHandler(file_handler)
 
     async def dispatch(self, request: Request, call_next):
+        request.state.body = {}
         response = await call_next(request)
         self.logger.info(None, extra={'request': request, 'response': response})
 
