@@ -1,0 +1,4 @@
+recursive-include backend/api *
+recursive-include backend/core *
+recursive-include backend/router *
+recursive-include backend/schemas *
